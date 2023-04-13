@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DLP енгізу арқылы ақпараттық қауіпсіздікті қамтамасыз ету</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background-color: white;
+            background-image: url('https://www.cloud4c.com/sites/default/files/styles/thumbnail_for_facebook/public/2022-07/host-data-loss-prevention-HDLPpage-1.jpg?itok=T8wNcbnn');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        h1, h2 {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            color: #333;
+        }
+        form {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: white;
+            padding: 0px;
+            border-radius: 10px;
+        }
+        label {
+            margin-bottom: 0px;
+            font-size: 10px;
+            font-weight: bold;
+            color: #666;
+        }
+        textarea {
+            width: 80%;
+            height: 150px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 10px;
+            font-size: 18px;
+            resize: none;
+        }
+        {% comment %} input[type="file"] {
+            margin-bottom: 10px;
+        } {% endcomment %}
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            {% comment %} justify-content: center; {% endcomment %}
+
+        }
+        button[type="reset"], input[type="submit"], .btn {
+            margin: 20px;
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 9px;
+            font-weight: bold;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-family: Arial, sans-serif;
+        }
+        button[type="reset"] {
+            background-color: #ddd;
+            color: #333;
+        }
+        input[type="submit"] {
+            background-color: #4285f4;
+            color: white;
+        }
+        .output-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            width: 40%;
+        }
+        .output {
+            border: 1px solid #ccc;
+            padding: 20px;
+            width: 48%;
+            border-radius: 10px;
+            background-color: white;
+            box-shadow: 0px 3px 5px #ccc;
+        }
+        .output h2 {
+            font-size: 12px;
+            font-weight: bold;
+            margin-top: 0;
+            margin-bottom: 0px;
+            color: #333;
+        }
+        .output p {
+            font-size: 9px;
+            color: #666;
+            margin: 0;
+            text-align: justify;
+            line-height: 1.5;
+        }
+        .output p:first-of-type {
+            margin-top: 0px;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #4285f4;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            
+        }
+        body {
+            margin: 0;
+        }
+            .navbar {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                background-color: #4285f4;
+                font-family: Arial, Helvetica, sans-serif;
+                padding: 10px;
+                line-height: 60px;
+                font-weight: bold;
+                width: 98.5%;
+            }
+    
+            .navbar a {
+                font-size: 18px;
+                color: white;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+            }
+    
+            .navbar a:hover {
+                background-color: #ddd;
+                color: black;
+            }
+    
+            /* Page content styles */
+            .content {
+    
+            }
+    
+            .logo img {
+                height: 100px;
+                padding-left: 20px;
+            }
+            .logo{
+                display: flex;
+            }
+            .slogan {
+                color: white;
+                padding-right: 800px;
+            }
+        
+    </style>
+
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">
+    
+            
+        </div>
+        <span class="slogan">Data Loss Prevention</span>
+        <div>
+            <a href="{% url 'masker' %}">Басты бет</a>
+            <a href="{% url 'aboutus' %}">Біз туралы</a>
+        </div>
+    </div>
+
+    
+    <form method="post" enctype="multipart/form-data">
+        <h1>DLP енгізу арқылы ақпараттық қауіпсіздікті қамтамасыз ету</h1>
+        {% csrf_token %}
+        <textarea name="text" placeholder="Ақпарат енгізіңіз">{% if text %} {{ text }}{% endif %}</textarea>
+        <h2>Қорғалған ақпарат</h2>
+        <textarea name="masked_text">{% if masked_text %} {{ masked_text }} {% else %}{% endif %}</textarea>   
+        <div class="buttons">
+            <label for="file" class="btn">Мәтіндік файлды жүктеу</label>
+            <div class="button-group">
+                <input id="file" style="visibility:hidden;" type="file" name="file" >
+
+                <input type="submit" value="Қорғау (документ/Текст файл)">
+            </div>
+        </div>
+    </form>
+    {% comment %} <div class="slides">
+        <img class="mySlides" src="https://cdn.shopify.com/s/files/1/0007/8017/3348/files/dlp-19.png?v=1623334553" style="width:350px; height: 175px;">
+        <img class="mySlides" src="https://spectrasoft.ru/upload/iblock/52a/52a8426de2626047187ec3c5c394fb5e.jpeg" style="width:350px; height: 175px;">
+        <img class="mySlides" src="https://download.huawei.com/mdl/image/download?uuid=da4016d625eb4036aee9986c2dbef0d6" style="width:350px; height: 175px;">
+    </div>
+    <script>
+        var myIndex = 0;
+        carousel();
+        
+        function carousel() {
+          var i;
+          var x = document.getElementsByClassName("mySlides");
+          for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";  
+          }
+          myIndex++;
+          if (myIndex > x.length) {myIndex = 1}    
+          x[myIndex-1].style.display = "block";  
+          setTimeout(carousel, 2000); // Change image every 2 seconds
+        } {% endcomment %}
+    
+      {% comment %} </script> {% endcomment %}
+</body>
+</html>
