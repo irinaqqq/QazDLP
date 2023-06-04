@@ -29,12 +29,7 @@
             background-color: white;
             padding: 0px;
             border-radius: 10px;
-        }
-        label {
-            margin-bottom: 0px;
-            font-size: 10px;
-            font-weight: bold;
-            color: #666;
+            height: 100%;
         }
         textarea {
             width: 80%;
@@ -47,18 +42,14 @@
             font-size: 18px;
             resize: none;
         }
-        {% comment %} input[type="file"] {
-            margin-bottom: 10px;
-        } {% endcomment %}
         .buttons {
             display: flex;
             justify-content: space-between;
-            {% comment %} justify-content: center; {% endcomment %}
 
         }
         button[type="reset"], input[type="submit"], .btn {
-            margin: 20px;
-            margin-top: 20px;
+            margin: 10px;
+            margin-top: 30px;
             padding: 10px;
             font-size: 9px;
             font-weight: bold;
@@ -182,39 +173,61 @@
     <form method="post" enctype="multipart/form-data">
         <h1>DLP енгізу арқылы ақпараттық қауіпсіздікті қамтамасыз ету</h1>
         {% csrf_token %}
-        <textarea name="text" placeholder="Ақпарат енгізіңіз">{% if text %} {{ text }}{% endif %}</textarea>
+        <textarea name="text" placeholder="Ақпарат енгізіңіз">{% if text %}{{ text }}{% endif %}</textarea>
         <h2>Қорғалған ақпарат</h2>
-        <textarea name="masked_text">{% if masked_text %} {{ masked_text }} {% else %}{% endif %}</textarea>   
+        <textarea name="masked_text">{% if masked_text %}{{ masked_text }}{% else %}{% endif %}</textarea>   
         <div class="buttons">
             <label for="file" class="btn">Мәтіндік файлды жүктеу</label>
-            <div class="button-group">
-                <input id="file" style="visibility:hidden;" type="file" name="file" >
-
-                <input type="submit" value="Қорғау (документ/Текст файл)">
-            </div>
+            <input type="hidden" id="encryption_type" name="encryption_type" value="">
+         <!-- <div class="button-group"> -->
+            <input id="file" style="visibility:hidden; display: none;" type="file" name="file" >
+            <input type="submit" name="submit_text" onclick="document.getElementById('encryption_type').value='text'" value="Мәтінді шифрлау">
+            <input type="submit" name="submit_text" onclick="document.getElementById('encryption_type').value='decrypt_text'" value="Мәтінді дешифрлау">
+            <input type="submit" name="submit_text" onclick="document.getElementById('encryption_type').value='file'" value="Файлды шифрлау">
+            <input type="submit" name="submit_text" onclick="document.getElementById('encryption_type').value='decrypt_file'" value="Файлды дешифрлау">  
+         <!-- </div> -->
         </div>
     </form>
-    {% comment %} <div class="slides">
-        <img class="mySlides" src="https://cdn.shopify.com/s/files/1/0007/8017/3348/files/dlp-19.png?v=1623334553" style="width:350px; height: 175px;">
-        <img class="mySlides" src="https://spectrasoft.ru/upload/iblock/52a/52a8426de2626047187ec3c5c394fb5e.jpeg" style="width:350px; height: 175px;">
-        <img class="mySlides" src="https://download.huawei.com/mdl/image/download?uuid=da4016d625eb4036aee9986c2dbef0d6" style="width:350px; height: 175px;">
-    </div>
-    <script>
-        var myIndex = 0;
-        carousel();
-        
-        function carousel() {
-          var i;
-          var x = document.getElementsByClassName("mySlides");
-          for (i = 0; i < x.length; i++) {
-            x[i].style.display = "none";  
-          }
-          myIndex++;
-          if (myIndex > x.length) {myIndex = 1}    
-          x[myIndex-1].style.display = "block";  
-          setTimeout(carousel, 2000); // Change image every 2 seconds
-        } {% endcomment %}
-    
-      {% comment %} </script> {% endcomment %}
 </body>
 </html>
+
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <title>Masker View</title>
+    <style>
+        .button-container {
+            margin-top: 10px;
+        }
+        .button-container button {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Masker View</h1>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="hidden" id="encryption_type" name="encryption_type" value="">
+        <div class="button-container">
+            <button type="submit" name="submit_text" onclick="document.getElementById('encryption_type').value='file'">Encrypt File</button>
+            <button type="submit" name="submit_text" onclick="document.getElementById('encryption_type').value='text'">Encrypt Text</button>
+            <button type="submit" name="submit_text" onclick="document.getElementById('encryption_type').value='decrypt_file'">Decrypt File</button>
+            <button type="submit" name="submit_text" onclick="document.getElementById('encryption_type').value='decrypt_text'">Decrypt Text</button>
+        </div>
+        <br><br>
+        {% if form.errors %}
+            <p style="color: red;">{{ form.errors }}</p>
+        {% endif %}
+        {{ form.as_p }}
+        <br>
+        <input type="submit" value="Submit"> -->
+    <!-- </form>
+    {% if masked_text %}
+        <h2>Masked/Unmasked Text:</h2>
+        <p>{{ masked_text }}</p>
+        <h2>Original Text:</h2>
+        <p>{{ text }}</p>
+    {% endif %}
+</body>
+</html> -->
